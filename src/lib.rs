@@ -4,10 +4,11 @@ use log::debug;
 pub struct Config {
     pub verbose: bool,
     pub quiet: bool,
+    pub n: i32,
 }
 
 pub struct Board {
-    columns: [i32; 8],
+    columns: Vec<i32>,
     solutions: i32,
     config: Config,
 }
@@ -15,7 +16,7 @@ pub struct Board {
 impl Board {
     pub fn new(config: Config) -> Board {
         Board {
-            columns: [0; 8],
+            columns: vec![0, config.n],
             solutions: 0,
             config,
         }

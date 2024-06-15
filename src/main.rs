@@ -40,6 +40,7 @@ fn parse_args() -> Config {
     let config = Config {
         verbose: matches.get_flag("verbose"),
         quiet: matches.get_flag("quiet"),
+        n: matches.get_one("n").unwrap_or(8),
     };
 
     config

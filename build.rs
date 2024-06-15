@@ -6,10 +6,11 @@ pub fn main() -> Result<()> {
     // NOTE: See the EmitBuilder documentation for configuration options.
     EmitBuilder::builder()
         .all_build()
-        .all_cargo()
+        // .all_cargo()
         .all_git()
+        // .git_describe(false, false, None)
         .all_rustc()
-        .all_sysinfo()
+        // .all_sysinfo()
         .emit()?;
     Ok(())
 }

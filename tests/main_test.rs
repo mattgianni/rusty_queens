@@ -1,8 +1,8 @@
 use rusty_queens::Board;
 
-fn main() {
+#[test]
+fn test_board() {
     let mut board = Board::new();
-
     board.set(0, 0, 1);
-    println!("{}", board.get(0, 0));
+    assert_eq!(board.get(0, 0), 1);
 }

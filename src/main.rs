@@ -1,31 +1,24 @@
-// use cfg_if::cfg_if;
 use clap::{Arg, ArgAction, Command};
-#[allow(unused_imports)]
+use env_logger;
+use log::debug;
 use rusty_queens::Board;
 
-// cfg_if! {
-//     if #[cfg(feature = "build")] {
-//         const VERSION: &str = env!("CARGO_PKG_VERSION");
-//         const GIT_COMMIT_HASH: &str = env!("VERGEN_GIT_SHA");
-//         const BUILD_TIMESTAMP: &str = env!("VERGEN_BUILD_TIMESTAMP");
-//     } else {
-//         const VERSION: &str = "unknown";
-//         const GIT_COMMIT_HASH: &str = "unknown";
-//         const BUILD_TIMESTAMP: &str = "unknown";
-//     }
-// }
+struct Config {
+    verbose: bool,
+}
 
-const VERSION: &str = env!("CARGO_PKG_VERSION");
-const GIT_COMMIT_HASH: &str = env!("VERGEN_GIT_DESCRIBE");
-const GIT_BRANCH: &str = env!("VERGEN_GIT_BRANCH");
-const RUSTC_HOST_TRIPLE: &str = env!("VERGEN_RUSTC_HOST_TRIPLE");
-const VERGEN_BUILD_TIMESTAMP: &str = env!("VERGEN_BUILD_TIMESTAMP");
+fn parse_args() -> Config {
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    const GIT_COMMIT_HASH: &str = env!("VERGEN_GIT_DESCRIBE");
+    const GIT_BRANCH: &str = env!("VERGEN_GIT_BRANCH");
+    const RUSTC_HOST_TRIPLE: &str = env!("VERGEN_RUSTC_HOST_TRIPLE");
+    const VERGEN_BUILD_TIMESTAMP: &str = env!("VERGEN_BUILD_TIMESTAMP");
 
-fn main() {
     let version = format!(
         "v{}-{}-{} (build {} {})",
         VERSION, GIT_BRANCH, GIT_COMMIT_HASH, RUSTC_HOST_TRIPLE, VERGEN_BUILD_TIMESTAMP
     );
+
     let version_str: &'static str = Box::leak(version.into_boxed_str());
 
     let matches = Command::new("rusty_queens")
@@ -41,9 +34,27 @@ fn main() {
         )
         .get_matches();
 
-    // Get the value of the "input" argument
-    let verbose = matches.get_flag("verbose");
-    if verbose {
-        println!("Verbose flag: {}", verbose);
+    let config = Config {
+        verbose: matches.get_flag("verbose"),
+    };
+
+    config
+}
+
+fn main() {
+    env_logger::init();
+    debug!("launching");
+
+    debug!("processing command line arguments");
+    let config = parse_args();
+
+    if config.verbose {
+        println!("verbose mode enabled");
     }
+
+    debug!("creating new board");
+    let mut board = Board::new();
+
+    debug!("calling print_all_solutions()");
+    board.print_all_solutions();
 }

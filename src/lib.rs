@@ -4,10 +4,11 @@ use log::debug;
 pub struct Config {
     pub verbose: bool,
     pub quiet: bool,
+    pub num: i32,
 }
 
 pub struct Board {
-    columns: [i32; 8],
+    columns: Vec<i32>,
     solutions: i32,
     config: Config,
 }
@@ -15,7 +16,7 @@ pub struct Board {
 impl Board {
     pub fn new(config: Config) -> Board {
         Board {
-            columns: [0; 8],
+            columns: vec![0; config.num as usize],
             solutions: 0,
             config,
         }
@@ -30,9 +31,9 @@ impl Board {
     }
 
     pub fn print(&self) {
-        for row in 0..8 {
-            for col in 0..8 {
-                if self.columns[col] == row as i32 {
+        for row in 0..self.config.num {
+            for col in 0..self.config.num {
+                if self.columns[col as usize] == row as i32 {
                     print!("Q ");
                 } else {
                     print!(". ");
@@ -45,7 +46,7 @@ impl Board {
     pub fn place_piece(&mut self, column: i32) {
         debug!("placing piece in column {}", column);
 
-        if column == 8 {
+        if column == self.config.num {
             self.solutions = self.solutions + 1;
             if !self.config.quiet {
                 println!("");
@@ -55,7 +56,7 @@ impl Board {
             return;
         }
 
-        for r in 0..8 {
+        for r in 0..self.config.num {
             let mut safe = true;
 
             for c in 0..column {

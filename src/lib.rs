@@ -2,12 +2,12 @@
 use log::debug;
 
 pub struct Board {
-    columns: [i32; 9],
+    columns: [i32; 8],
 }
 
 impl Board {
     pub fn new() -> Board {
-        Board { columns: [0; 9] }
+        Board { columns: [0; 8] }
     }
 
     pub fn set(&mut self, col: i32, value: i32) {
@@ -19,15 +19,8 @@ impl Board {
     }
 
     pub fn print(&self) {
-        for col in 0..9 {
-            print!("{} ", self.columns[col]);
-        }
-        println!();
-    }
-
-    pub fn print_full(&self) {
-        for row in 0..9 {
-            for col in 0..9 {
+        for row in 0..8 {
+            for col in 0..8 {
                 if self.columns[col] == row as i32 {
                     print!("Q ");
                 } else {
@@ -43,16 +36,17 @@ impl Board {
 
         if column == 8 {
             println!("Solution Found!");
-            self.print_full();
+            self.print();
             return;
         }
 
-        for row in 0..9 {
+        for r in 0..8 {
             let mut safe = true;
-            for i in 0..column {
-                if ((row - self.get(i)) == (column - i))
-                    && ((self.get(i) - row) == (column - i))
-                    && row == self.get(i)
+
+            for c in 0..column {
+                if ((r - self.get(c)) == (column - c))
+                    || ((self.get(c) - r) == (column - c))
+                    || r == self.get(c)
                 {
                     safe = false;
                     break;
@@ -60,7 +54,7 @@ impl Board {
             }
 
             if safe {
-                self.set(column, row);
+                self.set(column, r);
                 self.place_piece(column + 1);
             }
         }

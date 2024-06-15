@@ -1,13 +1,24 @@
 // use env_logger;
 use log::debug;
 
+pub struct Config {
+    pub verbose: bool,
+    pub quiet: bool,
+}
+
 pub struct Board {
     columns: [i32; 8],
+    solutions: i32,
+    config: Config,
 }
 
 impl Board {
-    pub fn new() -> Board {
-        Board { columns: [0; 8] }
+    pub fn new(config: Config) -> Board {
+        Board {
+            columns: [0; 8],
+            solutions: 0,
+            config,
+        }
     }
 
     pub fn set(&mut self, col: i32, value: i32) {
@@ -35,8 +46,12 @@ impl Board {
         debug!("placing piece in column {}", column);
 
         if column == 8 {
-            println!("Solution Found!");
-            self.print();
+            self.solutions = self.solutions + 1;
+            if !self.config.quiet {
+                println!("");
+                println!("Solution #{}", self.solutions);
+                self.print();
+            }
             return;
         }
 
@@ -63,5 +78,7 @@ impl Board {
     pub fn print_all_solutions(&mut self) {
         debug!("placing the first piece");
         self.place_piece(0);
+
+        print!("Found {} solutions.", self.solutions);
     }
 }

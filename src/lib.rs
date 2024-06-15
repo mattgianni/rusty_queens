@@ -80,6 +80,6 @@ impl Board {
         debug!("placing the first piece");
         self.place_piece(0);
 
-        print!("Found {} solutions.", self.solutions);
+        println!("Found {} solutions.", self.solutions);
     }
 }

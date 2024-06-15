@@ -1,9 +1,9 @@
 # Rusty Queens
 
 ![semver](https://img.shields.io/badge/semver-0.1.11-blue)
+[![GitHub issues by-label](https://img.shields.io/github/issues/mattgianni/rusty_queens/good%20first%20issue)](https://github.com/mattgianni/rusty_queens/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
 A simple project while learning Rust - a solution to the n-queens problem.
-
 
 ## Getting Started
 

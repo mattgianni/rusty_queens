@@ -1,4 +1,4 @@
-use clap::{Arg, ArgAction, Command};
+use clap::{value_parser, Arg, ArgAction, Command};
 use env_logger;
 use log::debug;
 use rusty_queens::{Board, Config};
@@ -35,12 +35,20 @@ fn parse_args() -> Config {
                 .action(ArgAction::SetTrue)
                 .help("whine less"),
         )
+        .arg(
+            Arg::new("num")
+                .short('n')
+                .long("num")
+                .help("size of the board")
+                .value_parser(value_parser!(i32))
+                .default_value("8"),
+        )
         .get_matches();
 
     let config = Config {
         verbose: matches.get_flag("verbose"),
         quiet: matches.get_flag("quiet"),
-        n: matches.get_one("n").unwrap_or(8),
+        num: *matches.get_one("num").unwrap(),
     };
 
     config

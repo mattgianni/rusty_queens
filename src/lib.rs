@@ -2,7 +2,6 @@
 use log::debug;
 
 pub struct Config {
-    pub verbose: bool,
     pub quiet: bool,
     pub num: i32,
 }

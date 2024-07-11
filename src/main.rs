@@ -33,7 +33,7 @@ fn parse_args() -> Config {
                 .short('n')
                 .long("num")
                 .help("size of the board")
-                .value_parser(value_parser!(i32))
+                .value_parser(value_parser!(usize))
                 .default_value("8"),
         )
         .get_matches();

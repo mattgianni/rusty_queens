@@ -28,13 +28,15 @@ impl Board {
         }
     }
 
-    fn is_free(&self, column: usize, row: usize) -> bool {
+    pub fn is_free(&self, column: usize, row: usize) -> bool {
         let rdiag = column + row;
         let ldiag = self.config.num - column + row - 1;
         self.available_rows[row] && self.available_rdiag[rdiag] && self.available_ldiag[ldiag]
     }
 
-    fn place_piece(&mut self, column: usize, row: usize) {
+    pub fn place_piece(&mut self, column: usize, row: usize) {
+        debug!("placing piece at column {} row {}", column, row);
+
         let rdiag = column + row;
         let ldiag = self.config.num - column + row - 1;
 
@@ -48,8 +50,12 @@ impl Board {
         self.available_ldiag[ldiag] = false;
     }
 
-    fn unplace_piece(&mut self, column: usize) {
+    pub fn unplace_piece(&mut self, column: usize) {
+        debug!("un-placing piece in column {}", column);
+
         let row = self.columns[column];
+        debug!("the un-placed piece is in row {}", row);
+
         let rdiag = column + row;
         let ldiag = self.config.num - column + row - 1;
 
@@ -70,7 +76,7 @@ impl Board {
             }
             self.solutions += 1;
         } else {
-            for row in 1..self.config.num {
+            for row in 0..self.config.num {
                 if self.is_free(column, row) {
                     self.place_piece(column, row);
                     self.find_spot(column + 1);
@@ -91,6 +97,10 @@ impl Board {
             }
             println!();
         }
+
+        debug!("  avail rows: {:?}", self.available_rows);
+        debug!(" avail rdiag: {:?}", self.available_rdiag);
+        debug!(" avail ldiag: {:?}", self.available_ldiag);
     }
 
     pub fn print_all_solutions(&mut self) {

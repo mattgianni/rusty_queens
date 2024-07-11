@@ -22,13 +22,6 @@ fn parse_args() -> Config {
         .author("Matthew Gianni <matt@gianni.org>")
         .about("learning Rust by example")
         .arg(
-            Arg::new("verbose")
-                .short('v')
-                .long("verbose")
-                .action(ArgAction::SetTrue)
-                .help("whine more"),
-        )
-        .arg(
             Arg::new("quiet")
                 .short('q')
                 .long("quiet")
@@ -46,7 +39,6 @@ fn parse_args() -> Config {
         .get_matches();
 
     let config = Config {
-        verbose: matches.get_flag("verbose"),
         quiet: matches.get_flag("quiet"),
         num: *matches.get_one("num").unwrap(),
     };
@@ -60,10 +52,6 @@ fn main() {
 
     debug!("processing command line arguments");
     let config = parse_args();
-
-    if config.verbose {
-        println!("verbose mode enabled");
-    }
 
     debug!("creating new board");
     let mut board = Board::new(config);

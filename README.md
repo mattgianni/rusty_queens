@@ -9,8 +9,6 @@ A simple project while learning Rust - a solution to the n-queens problem.
 
 This project exists to help me get started with `Rust`. It's not meant to be a *good* illustration of the n-queens problem per se, so please move along if you're looking for a serious implementation of the algorithm.
 
-If on the other hand you have a good sense of humor and you're looking for a simple project to help you get started with Rust, which includes basic argument parsing, logging, error handling, and unit testing, all written by rank amateurs ... then **this might be the project for you!**
-
 ## Prerequisites
 
 - [Computer](https://en.wikipedia.org/wiki/Computer)
@@ -30,7 +28,7 @@ If it worked, you'll also find a binary in the `target/release` directory that y
 
 ## Contributing
 
-Feeling unsure of yourself in `Rust` ... or just plain bored? Then this is the project for you! The bar is **really** low. If you think you can improve this thing or at least not break it completely, please feel free to contribute by submitting a pull request. I'll be sure to take a look at it ... eventually.
+Feeling unsure of yourself in `Rust` ... or just plain bored? Then this is the project for you! Feel free to contribute by submitting pull requests that compile. I'll be sure to take a look at it ... eventually.
 
 ## Rusty Queens License
 

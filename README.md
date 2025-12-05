@@ -26,10 +26,6 @@ cargo run --release     # Run it
 
 If it worked, you'll also find a binary in the `target/release` directory that you can run directly. Good luck!
 
-## Contributing
-
-Feeling unsure of yourself in `Rust` ... or just plain bored? Then this is the project for you! Feel free to contribute by submitting pull requests that compile. I'll be sure to take a look at it ... eventually.
-
 ## Rusty Queens License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
